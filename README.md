@@ -10,6 +10,29 @@ go get github.com/jjideenschmiede/goerecht24
 
 # How to use?
 
+## Client
+
+Here you will find all the functions for the clients.
+
+### List registered clients
+
+If you want to read all clients of a token, you can do this with the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Client/eRecht24%5CApi%5CControllers%5Cv1%5CClientController%3A%3AlistClients).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// List registered clients
+clients, err := goerecht24.ListRegisteredClients(r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(clients)
+}
+```
+
 ## Legal documents
 
 Here you will find all the information on how to extract the documents from the api.
