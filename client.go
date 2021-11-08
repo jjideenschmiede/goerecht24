@@ -11,7 +11,10 @@
 
 package goerech24
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // ClientBody is to create or update a client
 type ClientBody struct {
@@ -42,6 +45,11 @@ type ListRegisteredClientsReturn struct {
 type RegisterClientReturn struct {
 	Secret   string `json:"secret"`
 	ClientId int    `json:"client_id"`
+}
+
+// UpdateRegisteredClientReturn is to decode the json data
+type UpdateRegisteredClientReturn struct {
+	Secret string `json:"secret"`
 }
 
 // ListRegisteredClients is to get a list of all clients from eRecht24
@@ -99,6 +107,40 @@ func RegisterClient(body ClientBody, r Request) (RegisterClientReturn, error) {
 	err = json.NewDecoder(response.Body).Decode(&decode)
 	if err != nil {
 		return RegisterClientReturn{}, err
+	}
+
+	// Return data
+	return decode, err
+
+}
+
+// UpdateRegisteredClient is to update registered client
+func UpdateRegisteredClient(body ClientBody, r Request) (UpdateRegisteredClientReturn, error) {
+
+	// Convert body
+	convert, err := json.Marshal(body)
+	if err != nil {
+		return UpdateRegisteredClientReturn{}, err
+	}
+
+	// Set config for new request
+	c := Config{fmt.Sprintf("/clients/%d", body.ClientId), "PUT", convert}
+
+	// Send request
+	response, err := c.Send(r)
+	if err != nil {
+		return UpdateRegisteredClientReturn{}, err
+	}
+
+	// Close request
+	defer response.Body.Close()
+
+	// Decode data
+	var decode UpdateRegisteredClientReturn
+
+	err = json.NewDecoder(response.Body).Decode(&decode)
+	if err != nil {
+		return UpdateRegisteredClientReturn{}, err
 	}
 
 	// Return data
