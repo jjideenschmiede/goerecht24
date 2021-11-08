@@ -13,6 +13,17 @@ package goerech24
 
 import "encoding/json"
 
+// ClientBody is to create or update a client
+type ClientBody struct {
+	ClientId   int    `json:"client_id"`
+	PushMethod string `json:"push_method"`
+	PushUri    string `json:"push_uri"`
+	Cms        string `json:"cms"`
+	CmsVersion string `json:"cms_version"`
+	PluginName string `json:"plugin_name"`
+	AuthorMail string `json:"author_mail"`
+}
+
 // ListRegisteredClientsReturn is to decode the json data
 type ListRegisteredClientsReturn struct {
 	ClientId   int    `json:"client_id"`
@@ -25,6 +36,12 @@ type ListRegisteredClientsReturn struct {
 	AuthorMail string `json:"author_mail"`
 	CreatedAt  string `json:"created_at"`
 	UpdatedAt  string `json:"updated_at"`
+}
+
+// RegisterClientReturn is to decode the json data
+type RegisterClientReturn struct {
+	Secret   string `json:"secret"`
+	ClientId int    `json:"client_id"`
 }
 
 // ListRegisteredClients is to get a list of all clients from eRecht24
@@ -48,6 +65,40 @@ func ListRegisteredClients(r Request) ([]ListRegisteredClientsReturn, error) {
 	err = json.NewDecoder(response.Body).Decode(&decode)
 	if err != nil {
 		return nil, err
+	}
+
+	// Return data
+	return decode, err
+
+}
+
+// RegisterClient is to register client for push notifications
+func RegisterClient(body ClientBody, r Request) (RegisterClientReturn, error) {
+
+	// Convert body
+	convert, err := json.Marshal(body)
+	if err != nil {
+		return RegisterClientReturn{}, err
+	}
+
+	// Set config for new request
+	c := Config{"/clients", "POST", convert}
+
+	// Send request
+	response, err := c.Send(r)
+	if err != nil {
+		return RegisterClientReturn{}, err
+	}
+
+	// Close request
+	defer response.Body.Close()
+
+	// Decode data
+	var decode RegisterClientReturn
+
+	err = json.NewDecoder(response.Body).Decode(&decode)
+	if err != nil {
+		return RegisterClientReturn{}, err
 	}
 
 	// Return data
