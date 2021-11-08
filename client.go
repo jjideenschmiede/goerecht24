@@ -52,6 +52,13 @@ type UpdateRegisteredClientReturn struct {
 	Secret string `json:"secret"`
 }
 
+// DeleteClientReturn is to decode the json data
+type DeleteClientReturn struct {
+	Message   string      `json:"message"`
+	MessageDe string      `json:"message_de"`
+	Token     interface{} `json:"token,omitempty"`
+}
+
 // ListRegisteredClients is to get a list of all clients from eRecht24
 func ListRegisteredClients(r Request) ([]ListRegisteredClientsReturn, error) {
 
@@ -145,5 +152,55 @@ func UpdateRegisteredClient(body ClientBody, r Request) (UpdateRegisteredClientR
 
 	// Return data
 	return decode, err
+
+}
+
+// DeleteClient is to delete registered client
+func DeleteClient(id int, r Request) (DeleteClientReturn, error) {
+
+	// Set config for new request
+	c := Config{fmt.Sprintf("/clients/%d", id), "DELETE", nil}
+
+	// Send request
+	response, err := c.Send(r)
+	if err != nil {
+		return DeleteClientReturn{}, err
+	}
+
+	// Close request
+	defer response.Body.Close()
+
+	// Decode data
+	var decode DeleteClientReturn
+	json.NewDecoder(response.Body).Decode(&decode)
+
+	// Return data
+	return decode, err
+
+}
+
+// TestPush is to send a push notification for development
+func TestPush(id int, pushType string, r Request) error {
+
+	// Set config for new request
+	c := Config{fmt.Sprintf("/clients/%d/testPush?type=%s", id, pushType), "POST", nil}
+
+	// Send request
+	response, err := c.Send(r)
+	if err != nil {
+		return err
+	}
+
+	// Close request
+	defer response.Body.Close()
+
+	// Check response status
+	err = statusCodes(response.Status)
+	if err != nil {
+		return err
+	}
+
+	// Return nothing
+	return nil
 
 }
