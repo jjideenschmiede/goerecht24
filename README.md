@@ -1,6 +1,6 @@
 # goerech24
 
-[![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/jjideenschmiede/goerecht24.svg)](https://golang.org/) [![Go](https://github.com/jjideenschmiede/goerecht24/actions/workflows/go.yml/badge.svg)](https://github.com/jjideenschmiede/goerecht24/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/jjideenschmiede/goerecht24)](https://goreportcard.com/report/github.com/jjideenschmiede/goerecht24) [![Go Doc](https://godoc.org/github.com/jjideenschmiede/goerecht24?status.svg)](https://pkg.go.dev/github.com/jjideenschmiede/goerecht24) ![Lines of code](https://img.shields.io/tokei/lines/github/jjideenschmiede/goerecht24) [![Developed with <3](https://img.shields.io/badge/Developed%20with-%3C3-19ABFF)](https://jj-dev.de/)
+[![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/jjideenschmiede/goerecht24.svg)](https://golang.org/) [![Go](https://github.com/jjideenschmiede/goerech24/actions/workflows/go.yml/badge.svg)](https://github.com/jjideenschmiede/goerech24/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/jjideenschmiede/goerecht24)](https://goreportcard.com/report/github.com/jjideenschmiede/goerecht24) [![Go Doc](https://godoc.org/github.com/jjideenschmiede/goerecht24?status.svg)](https://pkg.go.dev/github.com/jjideenschmiede/goerecht24) ![Lines of code](https://img.shields.io/tokei/lines/github/jjideenschmiede/goerecht24) [![Developed with <3](https://img.shields.io/badge/Developed%20with-%3C3-19ABFF)](https://jj-dev.de/)
 
 # Install
 
@@ -49,5 +49,24 @@ if err != nil {
     fmt.Println(err)
 } else {
     fmt.Println(privacyPolicy)
+}
+```
+
+### Show privacy policy social media
+
+If you want to read the privacy policy social media, you can do this with the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Legal%20documents/get_v1_privacyPolicySocialMedia).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Get privacy policy social media
+privacyPolicySocialMedia, err := goerecht24.ShowPrivacyPolicySocialMedia(r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(privacyPolicySocialMedia)
 }
 ```

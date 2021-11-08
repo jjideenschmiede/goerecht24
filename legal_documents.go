@@ -40,6 +40,19 @@ type ShowPrivacyPolicyReturn struct {
 	Token     interface{} `json:"token,omitempty"`
 }
 
+// PrivacyPolicySocialMediaReturn is to decode the json data
+type PrivacyPolicySocialMediaReturn struct {
+	HtmlEn    string      `json:"html_en"`
+	Warnings  string      `json:"warnings"`
+	Created   string      `json:"created"`
+	Modified  string      `json:"modified"`
+	Pushed    string      `json:"pushed"`
+	HtmlDe    string      `json:"html_de"`
+	Message   string      `json:"message,omitempty"`
+	MessageDe string      `json:"message_de,omitempty"`
+	Token     interface{} `json:"token,omitempty"`
+}
+
 // ShowImprint is to get the imprint from eRecht24
 func ShowImprint(r Request) (ShowImprintReturn, error) {
 
@@ -89,6 +102,34 @@ func ShowPrivacyPolicy(r Request) (ShowPrivacyPolicyReturn, error) {
 	err = json.NewDecoder(response.Body).Decode(&decode)
 	if err != nil {
 		return ShowPrivacyPolicyReturn{}, err
+	}
+
+	// Return data
+	return decode, err
+
+}
+
+// ShowPrivacyPolicySocialMedia is to get the privacy policy social media from eRecht24
+func ShowPrivacyPolicySocialMedia(r Request) (PrivacyPolicySocialMediaReturn, error) {
+
+	// Set config for new request
+	c := Config{"/privacyPolicySocialMedia", "GET", nil}
+
+	// Send request
+	response, err := c.Send(r)
+	if err != nil {
+		return PrivacyPolicySocialMediaReturn{}, err
+	}
+
+	// Close request
+	defer response.Body.Close()
+
+	// Decode data
+	var decode PrivacyPolicySocialMediaReturn
+
+	err = json.NewDecoder(response.Body).Decode(&decode)
+	if err != nil {
+		return PrivacyPolicySocialMediaReturn{}, err
 	}
 
 	// Return data
