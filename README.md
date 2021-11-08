@@ -33,6 +33,36 @@ if err != nil {
 }
 ```
 
+### Register client for push notifications
+
+If you want to create a new client, you can do this with the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Client/post_v1_clients).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Define body
+body := ClientBody{
+    ClientId:   0,
+    PushMethod: "GET",
+    PushUri:    "https://domain.com/restapi/push-endpoint",
+    Cms:        "WordPress",
+    CmsVersion: "5.0.3",
+    PluginName: "eRecht24.de Rechtstexte für WordPress",
+    AuthorMail: "info@jj-ideenschmiede.de",
+}
+
+// Register a new client
+registerClient, err := RegisterClient(body, r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(registerClient)
+}
+```
+
 ## Legal documents
 
 Here you will find all the information on how to extract the documents from the api.
