@@ -70,3 +70,24 @@ if err != nil {
     fmt.Println(privacyPolicySocialMedia)
 }
 ```
+
+## Messages
+
+### Fetch message from 
+
+To retrieve a message, you can use the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Messages/get_v1_message).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Fetch message from eRecht24
+message, err := goerecht24.FetchMessage(r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(message)
+}
+```
