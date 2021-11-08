@@ -51,3 +51,22 @@ if err != nil {
     fmt.Println(privacyPolicy)
 }
 ```
+
+### Show privacy policy social media
+
+If you want to read the privacy policy social media, you can do this with the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Legal%20documents/get_v1_privacyPolicySocialMedia).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Get privacy policy social media
+privacyPolicySocialMedia, err := goerecht24.ShowPrivacyPolicySocialMedia(r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(privacyPolicySocialMedia)
+}
+```
