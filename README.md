@@ -93,6 +93,48 @@ if err != nil {
 }
 ```
 
+### Delete client
+
+If you want to delete a registered client, you can do this with the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Client/eRecht24%5CApi%5CControllers%5Cv1%5CClientController%3A%3Adelete).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Delete a registered client
+deleteClient, err := DeleteClient(17828, r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(deleteClient)
+}
+```
+
+### Send a push notification for development
+
+If you want to send a test notification, you can do so using the following function.
+
+Select which type of push notification you want to receive for testing.
+
+**Available values : ping, message, imprint, privacyPolicy, privacyPolicySocialMedia**
+
+You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Client/post_v1_clients__client_id__testPush).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Send a test push
+err := goerecht24.TestPush(17828, "ping", r)
+if err != nil {
+    fmt.Println(err)
+}
+```
+
 ## Legal documents
 
 Here you will find all the information on how to extract the documents from the api.
@@ -156,6 +198,8 @@ if err != nil {
 
 ## Messages
 
+Please only call this endpoint after receiving a push notification indicating to fetch a message.
+
 ### Fetch message from 
 
 To retrieve a message, you can use the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Messages/get_v1_message).
@@ -174,3 +218,29 @@ if err != nil {
     fmt.Println(message)
 }
 ```
+
+## Push
+
+This endpoint will send a push notification to all clients, which are registered for this api key.
+
+### Send a push notification to registered clients
+
+If you want to push a type, you can do so via this function. Select, which type of document you want to push.
+
+Available values : **imprint, privacyPolicy, privacyPolicySocialMedia, all** 
+
+You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Push/post_v1_push__type_).
+
+```go 
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Delete a registered client
+err := goerecht24.SendPushNotification("all", r)
+if err != nil {
+    fmt.Println(err)
+}
+```
+
