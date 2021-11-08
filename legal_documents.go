@@ -15,23 +15,29 @@ import "encoding/json"
 
 // ShowImprintReturn is to decode the json data
 type ShowImprintReturn struct {
-	HtmlEn   string `json:"html_en"`
-	Created  string `json:"created"`
-	Modified string `json:"modified"`
-	Warnings string `json:"warnings"`
-	Pushed   string `json:"pushed"`
-	HtmlDe   string `json:"html_de"`
+	HtmlEn    string      `json:"html_en"`
+	Created   string      `json:"created"`
+	Modified  string      `json:"modified"`
+	Warnings  string      `json:"warnings"`
+	Pushed    string      `json:"pushed"`
+	HtmlDe    string      `json:"html_de"`
+	Message   string      `json:"message,omitempty"`
+	MessageDe string      `json:"message_de,omitempty"`
+	Token     interface{} `json:"token,omitempty"`
 }
 
 // ShowPrivacyPolicyReturn is to decode the json data
 type ShowPrivacyPolicyReturn struct {
-	HtmlEn   string `json:"html_en"`
-	Dsgalt   int    `json:"dsgalt"`
-	Created  string `json:"created"`
-	Modified string `json:"modified"`
-	Warnings string `json:"warnings"`
-	Pushed   string `json:"pushed"`
-	HtmlDe   string `json:"html_de"`
+	HtmlEn    string      `json:"html_en"`
+	Dsgalt    int         `json:"dsgalt"`
+	Created   string      `json:"created"`
+	Modified  string      `json:"modified"`
+	Warnings  string      `json:"warnings"`
+	Pushed    string      `json:"pushed"`
+	HtmlDe    string      `json:"html_de"`
+	Message   string      `json:"message,omitempty"`
+	MessageDe string      `json:"message_de,omitempty"`
+	Token     interface{} `json:"token,omitempty"`
 }
 
 // ShowImprint is to get the imprint from eRecht24
