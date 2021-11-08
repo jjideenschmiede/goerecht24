@@ -44,7 +44,7 @@ r := goerecht24.Request{
 }
 
 // Define body
-body := ClientBody{
+body := goerecht24.ClientBody{
     ClientId:   0,
     PushMethod: "GET",
     PushUri:    "https://domain.com/restapi/push-endpoint",
@@ -55,11 +55,41 @@ body := ClientBody{
 }
 
 // Register a new client
-registerClient, err := RegisterClient(body, r)
+registerClient, err := goerecht24.RegisterClient(body, r)
 if err != nil {
     fmt.Println(err)
 } else {
     fmt.Println(registerClient)
+}
+```
+
+### Update client information
+
+If you want to update a registered client, you can do this with the following function. You can find the corresponding documentation [here](https://docs.api.e-recht24.de/#/Client/eRecht24%5CApi%5CControllers%5Cv1%5CClientController%3A%3Aupdate).
+
+```go
+// Define request
+r := goerecht24.Request{
+    ApiKey: "",
+}
+
+// Define body
+body := goerecht24.ClientBody{
+    ClientId:   17828,
+    PushMethod: "GET",
+    PushUri:    "https://domain2.com/restapi/push-endpoint",
+    Cms:        "WordPress",
+    CmsVersion: "5.0.3",
+    PluginName: "eRecht24.de Rechtstexte für WordPress",
+    AuthorMail: "info@jj-ideenschmiede.de",
+}
+
+// Update a registered client
+updateRegisteredClient, err := goerecht24.UpdateRegisteredClient(body, r)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(updateRegisteredClient)
 }
 ```
 
